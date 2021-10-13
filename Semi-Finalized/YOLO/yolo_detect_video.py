@@ -26,15 +26,20 @@ outNames = net.getUnconnectedOutLayersNames()
 writer = None
 
 #cap = cv2.VideoCapture(args.video)
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture(0);
 print("Starting now")
-while(cap.isOpened()):
 
-    ret, frame = cap.read()
+while(cap.isOpened()):
     
+    ret, frame = cap.read();
+    
+    
+    #cv2.imshow("Chonk ChanK",frame);
+    
+    if cv2.waitKey(1) & 0xFF == ord('q'):
+        break;
     if not ret:
         break;
-
     # Create blob from image
     blob = cv2.dnn.blobFromImage(frame, 1 / 255.0, (416, 416), swapRB=True, crop=False)
 
@@ -51,10 +56,11 @@ while(cap.isOpened()):
         frameHeight = frame.shape[0]
         frameWidth = frame.shape[1]
         writer = cv2.VideoWriter('out.avi', cv2.VideoWriter_fourcc('M','J','P','G'), 10, (frameWidth, frameHeight))
-
+    
+    cv2.imshow("Chonk ChanK",frame);
     writer.write(frame)
 
 # cleaning up
-cap.release()
+cap.release();
 writer.release()
-cv2.destroyAllWindows()
+cv2.destroyAllWindows();
